@@ -21,7 +21,6 @@ function App() {
       <table>
         <tr>
           <th>Name</th>
-          <th>Ingredients</th>
         </tr>
         <Meals meals={meals} />
       </table>

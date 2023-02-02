@@ -5,17 +5,13 @@ export default function meals({meals}) {
   return (
     meals.map(meal => (
         <tr key={meal.id}>
-            <td>{meal.name}</td>
-            <td><Ingredients ingredients={meal.ingredients} /></td>
+            <td>
+              <h3>{meal.name}</h3> {"\n"}
+              <Ingredients ingredients={meal.ingredients} />
+            </td>
         </tr>
           
       ))
 
   )
 }
-
-
-{/* <p>{meal.name}</p>
-<ul>
-  <Ingredients ingredients={meal.ingredients} />
-</ul> */}
