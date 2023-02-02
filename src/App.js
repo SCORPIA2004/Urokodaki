@@ -24,20 +24,6 @@ function App() {
         </tr>
         <Meals meals={meals} />
       </table>
-
-      <h1>Ingredients</h1>
-      {ingredients.map(ingredient => (
-        <div key={ingredient.name}>
-          <p>{ingredient.name}</p>
-          <ul>
-            {ingredient.options.map(option => (
-              <li key={option.name}>
-                {option.name}: {option.quality} ({option.price} per {option.per_amount})
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
     </div>
   );
 }
