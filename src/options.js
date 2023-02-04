@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
 
-export default function Options({location}) {
-  const ingredients = JSON.parse(decodeURIComponent(location.search.split("=")[1]));
-  const [selectedOption, setSelectedOption] = useState({});
-  
-  const handleOptionChange = (ingredient, option) => {
-    setSelectedOption({ ...selectedOption, [ingredient]: option });
-  };
+
+export default function Options() {
+  const location = useLocation();
+  const ingredientsString = queryString.parse(location.search).ingredients;
+
+  // Parse the string into a JavaScript object
+  const ingredients = JSON.parse(ingredientsString);
+
+  // You can now access the ingredients array and use it in your component
+  console.log(ingredients);
 
   return (
     <div>
@@ -20,34 +25,34 @@ export default function Options({location}) {
           </tr>
         </thead>
         <tbody>
-          {ingredients.map((ingredient, index) => (
-            <tr key={index}>
-              <td>{ingredient}</td>
+          {ingredients.map(ingredient => (
+            <tr key={ingredient.name}>
+              <td>{ingredient.name}</td>
               <td>
                 <input
                   type="radio"
-                  name={ingredient}
+                  name={ingredient.name}
                   value="low"
-                  checked={selectedOption[ingredient] === "low"}
-                  onChange={() => handleOptionChange(ingredient, "low")}
+                  // checked={selectedOption[ingredient] === "low"}
+                  // onChange={() => handleOptionChange(ingredient, "low")}
                 />
               </td>
               <td>
                 <input
                   type="radio"
-                  name={ingredient}
+                  name={ingredient.name}
                   value="medium"
-                  checked={selectedOption[ingredient] === "medium"}
-                  onChange={() => handleOptionChange(ingredient, "medium")}
+                  // checked={selectedOption[ingredient] === "medium"}
+                  // onChange={() => handleOptionChange(ingredient, "medium")}
                 />
               </td>
               <td>
                 <input
                   type="radio"
-                  name={ingredient}
+                  name={ingredient.name}
                   value="high"
-                  checked={selectedOption[ingredient] === "high"}
-                  onChange={() => handleOptionChange(ingredient, "high")}
+                  // checked={selectedOption[ingredient] === "high"}
+                  // onChange={() => handleOptionChange(ingredient, "high")}
                 />
               </td>
             </tr>

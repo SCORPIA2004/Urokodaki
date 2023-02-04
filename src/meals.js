@@ -11,7 +11,7 @@ export default function Meals({meals}) {
               <h3>{meal.name}</h3> {"\n"}
               <Ingredients ingredients={meal.ingredients} />
               <Link to={`/options?ingredients=${encodeURIComponent(JSON.stringify(meal.ingredients))}`}>
-                <button id="options-btn">Options --{'>'}</button>
+                <button id="options-btn">Options</button>
               </Link>
             </td>
         </tr>

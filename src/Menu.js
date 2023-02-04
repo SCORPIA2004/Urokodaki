@@ -23,7 +23,7 @@ export default function Menu() {
             <tr>
             <th>Name</th>
             </tr>
-            <Meals meals={meals} />
+            <Meals meals={meals} ingredients={ingredients} />
         </tbody>
       </table>
     </div>
