@@ -1,32 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Meals from './meals';
+import React from 'react';
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import Menu from './Menu.js';
+import Welcome from './Welcome.js';
+import Options from './Options.js';
 
 function App() {
-  const [meals, setMeals] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
-
-  useEffect(() => {
-    axios.get('./menuDataFile.json')
-      .then(response => {
-        setMeals(response.data.meals);
-        setIngredients(response.data.ingredients);
-      })
-      .catch(error => console.error(error));
-  }, [meals, ingredients]);
-
   return (
-    <div>
-      <h1>Meals</h1>
-      <table>
-        <tr>
-          <th>Name</th>
-        </tr>
-        <Meals meals={meals} />
-      </table>
-    </div>
+    <BrowserRouter>
+      <nav>
+            <Link to="/"><img src="./logo.png" alt="logo" id="logo" /></Link>
+            <Link to="/menu"><button id="menu-btn">Menu</button></Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" exact element={<Welcome />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/options" element={<Options />} />
+      </Routes>
+    
+    </BrowserRouter>
   );
 }
+
+
 
 export default App;
 

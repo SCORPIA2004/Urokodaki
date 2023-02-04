@@ -1,8 +1,13 @@
 body {
+  /* background-color: #373b3b; */
+  background: radial-gradient(ellipse at center, rgb(100, 100, 100) 0%, #373b3b 100%);
+  color: white;
+  text-align: center;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
+  font-family: 'Nova Round', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -12,18 +17,103 @@ code {
     monospace;
 }
 
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #333;
+  color: white;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+  font-size: 1.2em;
+}
+
+nav a:hover {
+  color: navy;
+}
+
+nav span {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+
+#menu-btn, #options-btn {
+  font-family: 'Nova Round', sans-serif;
+  background-color: #feecda;
+  color: #333;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  padding: 10px 20px;
+  font-size: 1.0em;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+}
+
+#menu-btn:hover {
+  background-color: #ad3621;
+  color: white;
+}
+#options-btn:hover {
+  background-color: #ad3621;
+  color: white;
+}
+#options-btn {
+  float: right;
+}
+
+
+#logo {
+  height: 70px;
+}
+
+
+h1{
+  color: #db573f;
+
+}
+
 table {
-  font-family: arial, sans-serif;
+  width: 80%;
+  margin: auto;
   border-collapse: collapse;
-  width: 100%;
 }
 
-td, th {
-  border: 1px solid #dddddd;
+th, td {
+  padding: 15px;
   text-align: left;
-  padding: 8px;
+  border-bottom: 1px solid #ad362169;
+  border-radius: 10px;
 }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
+th {
+  background-color: #feecda;
+  color: rgb(34, 34, 34);
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+
+td {
+  color: #feecda;
+  font-size: 1.1em;
+}
+
+.ingredient-list {
+  margin: 0;
+  padding-left: 15px;
+  list-style: none;
+}
+
+.ingredient-list li {
+  display: inline;
+  margin-right: 10px;
+  color: #666;
 }

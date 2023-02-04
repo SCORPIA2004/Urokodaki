@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ingredients({ingredients}) {
+export default function Ingredients({ingredients}) {
   return (
     ingredients.map((ingredient, index) => (
       <React.Fragment key={ingredient.name}>
