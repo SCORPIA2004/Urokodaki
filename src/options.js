@@ -1,17 +1,71 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
+import axios from 'axios';
 
+const QUALITY_DEGRADATION_COST = {
+  low: 0.10,
+  medium: 0.05,
+  high: 0
+};
 
 export default function Options() {
+
+  const [ingredientsAll, setIngredientsAll] = useState([]);
+
+  useEffect(() => {
+    axios.get('./menuDataFile.json')
+      .then(response => {
+        setIngredientsAll(response.data.ingredientsAll);
+      })
+      .catch(error => console.error(error));
+  }, [ingredientsAll]);
+  
+
+  function calcIngredientPrice(name) {
+    console.log("calcIng= " + name)
+    if (!ingredientsAll) {
+      return 0;
+    }
+  
+    const ingredient = ingredientsAll.find(i => i.name === name);
+
+    for(let j = 0; j < ingredientsAll.length; j++)
+    {
+      console.log()
+    }
+
+    if (!ingredient) {
+      return 0;
+    }
+  
+    return ingredient.price;
+  }
+  
+  
+
+
   const location = useLocation();
   const ingredientsString = queryString.parse(location.search).ingredients;
-
-  // Parse the string into a JavaScript object
   const ingredients = JSON.parse(ingredientsString);
 
-  // You can now access the ingredients array and use it in your component
-  console.log(ingredients);
+  const [selectedOptions, setSelectedOptions] = useState({});
+
+  
+
+  // Calculate the price of the meal
+  const totalCost = ingredients.reduce((cost, ingredient) => {
+
+    const ingredientCost = (ingredient.quantity / 1000) * calcIngredientPrice(ingredient.name);
+    const degradationCost = QUALITY_DEGRADATION_COST[selectedOptions[ingredient.name]] || 0;
+
+    return cost + ingredientCost + degradationCost;
+  }, 0);
+
+  // Handle changes to the selected options
+  const handleOptionChange = (ingredient, option) => {
+    setSelectedOptions({ ...selectedOptions, [ingredient]: option });
+  };
 
   return (
     <div>
@@ -33,8 +87,8 @@ export default function Options() {
                   type="radio"
                   name={ingredient.name}
                   value="low"
-                  // checked={selectedOption[ingredient] === "low"}
-                  // onChange={() => handleOptionChange(ingredient, "low")}
+                  checked={selectedOptions[ingredient.name] === "low"}
+                  onChange={() => handleOptionChange(ingredient.name, "low")}
                 />
               </td>
               <td>
@@ -42,8 +96,10 @@ export default function Options() {
                   type="radio"
                   name={ingredient.name}
                   value="medium"
-                  // checked={selectedOption[ingredient] === "medium"}
-                  // onChange={() => handleOptionChange(ingredient, "medium")}
+                  checked={selectedOptions[ingredient.name] === "medium"}
+                  onChange={() =>
+                    handleOptionChange(ingredient.name, "medium")
+                  }
                 />
               </td>
               <td>
@@ -51,14 +107,18 @@ export default function Options() {
                   type="radio"
                   name={ingredient.name}
                   value="high"
-                  // checked={selectedOption[ingredient] === "high"}
-                  // onChange={() => handleOptionChange(ingredient, "high")}
+                  checked={selectedOptions[ingredient.name] === "high"}
+                  onChange={() => handleOptionChange(ingredient.name, "high")}
                 />
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <p>
+        Total Cost: $
+        {totalCost.toFixed(2)}
+      </p>
     </div>
   );
 }
